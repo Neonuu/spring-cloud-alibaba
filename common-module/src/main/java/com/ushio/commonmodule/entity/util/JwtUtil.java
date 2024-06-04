@@ -19,7 +19,7 @@ public class JwtUtil {
     //用于签名加密的密钥，为一个字符串（需严格保密）
     private static final String KEY = "token_key";
 
-    private static final int TOKEN_TIME_OUT = 1000 * 60 * 60 * 24;
+    private static final int TOKEN_TIME_OUT = 1000 * 60 * 60;
 
     public static String getToken(String userId) {
 
@@ -42,7 +42,7 @@ public class JwtUtil {
                 //设置用户id
                 .withClaim("userId", userId)
 
-                //token失效时间，这里为一天后失效
+                //token失效时间，这里为一消失后失效
                 .withExpiresAt(new Date(System.currentTimeMillis() + TOKEN_TIME_OUT))
                 //设置该jwt的发行时间，一般为当前系统时间
                 .withIssuedAt(new Date(System.currentTimeMillis()))
