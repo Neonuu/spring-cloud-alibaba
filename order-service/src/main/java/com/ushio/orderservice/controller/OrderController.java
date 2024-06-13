@@ -2,7 +2,6 @@ package com.ushio.orderservice.controller;
 
 import com.ushio.commonmodule.entity.Order;
 import com.ushio.orderservice.feignClient.PointServiceFeignClient;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -11,13 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.TimeUnit;
-
 @RestController
 @RequestMapping(value = "/order")
 @RefreshScope
 public class OrderController {
-    //application.yml配置文件中，设置token在redis中的过期时间
     @Value("${config.info}")
     private String configInfo;
 

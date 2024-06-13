@@ -1,12 +1,13 @@
 package com.ushio.userservice.controller;
 
-import com.ushio.commonmodule.entity.Order;
 import com.ushio.commonmodule.entity.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping(value = "/user")
 @RefreshScope
 public class UserController {
+    //application.yml配置文件中，设置token在redis中的过期时间
     @Value("${config.redisTimeout}")
     private Long redisTimeout;
 
