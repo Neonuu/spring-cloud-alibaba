@@ -1,6 +1,7 @@
 package com.ushio.gatewayservice.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -14,8 +15,14 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import java.util.concurrent.TimeUnit;
+
 @Component
 public class GlobalFilterConfig implements GlobalFilter, Ordered {
+    //application.yml配置文件中，设置token在redis中的过期时间
+    @Value("${config.redisTimeout}")
+    private Long redisTimeout;
+
     @Autowired
     private RedisTemplate redisTemplate;
 
@@ -48,6 +55,8 @@ public class GlobalFilterConfig implements GlobalFilter, Ordered {
             return unAuthorize(exchange);
         }
 
+        //验证通过，刷新token过期时间
+        redisTemplate.expire(token,redisTimeout,TimeUnit.SECONDS);
         //把新的 exchange放回到过滤链
         ServerHttpRequest newRequest = request.mutate().header(HEADER_NAME, token).build();
         ServerWebExchange newExchange = exchange.mutate().request(newRequest).build();

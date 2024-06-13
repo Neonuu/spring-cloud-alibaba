@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping(value = "/order")
 @RefreshScope
 public class OrderController {
+    //application.yml配置文件中，设置token在redis中的过期时间
     @Value("${config.info}")
     private String configInfo;
 
