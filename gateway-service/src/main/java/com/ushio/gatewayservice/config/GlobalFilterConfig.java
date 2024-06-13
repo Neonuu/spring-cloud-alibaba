@@ -57,6 +57,8 @@ public class GlobalFilterConfig implements GlobalFilter, Ordered {
 
         //验证通过，刷新token过期时间
         redisTemplate.expire(token,redisTimeout,TimeUnit.SECONDS);
+        String userId = String.valueOf(redisTemplate.opsForValue().get(token));
+        System.out.println("============登录用户id："+userId+"============");
         //把新的 exchange放回到过滤链
         ServerHttpRequest newRequest = request.mutate().header(HEADER_NAME, token).build();
         ServerWebExchange newExchange = exchange.mutate().request(newRequest).build();

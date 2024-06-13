@@ -24,10 +24,11 @@ public class UserController {
     public String login (){
 
         //验证账号密码
+        String userId = "123";
         //jwt生成token
-        String token = JwtUtil.getToken("123");
+        String token = JwtUtil.getToken(userId);
         //将token存入redis
-        redisTemplate.opsForValue().set(token,token,redisTimeout, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(token,userId,redisTimeout, TimeUnit.SECONDS);
         //将token返回客户端
         return token;
     }
