@@ -29,7 +29,7 @@ public class GlobalFilterConfig implements GlobalFilter, Ordered {
     private static final String HEADER_NAME = "Acess-Token";
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        System.out.println("============拦截器============");
+        System.out.println("============过滤器============");
 
         // 获取请求对象
         ServerHttpRequest request = exchange.getRequest();
