@@ -35,5 +35,23 @@ public class UserController {
         return token;
     }
 
+    @GetMapping(value = "/test/timeout")
+    public String timeout (){
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return "111";
+    }
+
+    @GetMapping(value = "/test/exception")
+    public String exception (){
+
+        int i = 10/0;
+        return "111";
+    }
+
 
 }
