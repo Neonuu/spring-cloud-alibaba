@@ -1,5 +1,8 @@
 package com.ushio.userservice.controller;
 
+
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.ushio.commonmodule.entity.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,8 +10,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -52,6 +55,21 @@ public class UserController {
         int i = 10/0;
         return "111";
     }
+
+    @GetMapping(value = "/test/hotKey")
+    @SentinelResource(value = "testHotKey",blockHandler = "testHotKeyBlockHandler")
+    public String testHotKey (@RequestParam(value = "p1",required = false) String p1,@RequestParam(value = "p2",required = false) String p2){
+
+        return "testHotKey";
+    }
+
+    public String testHotKeyBlockHandler (String p1, String p2, BlockException e){
+
+        return "testHotKey,热点流控降级";
+    }
+
+
+
 
 
 }
