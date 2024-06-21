@@ -1,0 +1,10 @@
+#此配置文件中的内容为nacos配置列表中的内容
+#此文件本身并无作用，实际项目中可以删除，仅为了方便大家复制粘贴
+server:
+  port: 9081
+spring:
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8719
