@@ -13,6 +13,8 @@ spring:
         dashboard: localhost:8080
         port: 8719
     gateway:
+      default-filters:
+        - AddRequestHeader=origin,gateway # 添加名为origin的请求头，值为gateway
       globalcors:
         cors-configurations:
           '[/**]': # 匹配所有请求
